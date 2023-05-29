@@ -1,11 +1,5 @@
 package com.practica.ems.covid;
 
-import com.practica.excecption.EmsDuplicateLocationException;
-import com.practica.excecption.EmsDuplicatePersonException;
-import com.practica.excecption.EmsInvalidNumberOfDataException;
-import com.practica.excecption.EmsInvalidTypeException;
-
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

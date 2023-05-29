@@ -162,17 +162,17 @@ public class ListaContactos {
 	
 	@Override
 	public String toString() {
-		String cadena="";
+		StringBuilder cadena= new StringBuilder();
 		int cont;
 		NodoTemporal aux = lista;
 		for(cont=1; cont<size; cont++) {
-			cadena += aux.getFecha().getFecha().toString();
-			cadena += ";" +  aux.getFecha().getHora().toString() + " ";
+			cadena.append(aux.getFecha().getFecha().toString());
+			cadena.append(";").append(aux.getFecha().getHora().toString()).append(" ");
 			aux=aux.getSiguiente();
 		}
-		cadena += aux.getFecha().getFecha().toString();
-		cadena += ";" +  aux.getFecha().getHora().toString();
-		return cadena;
+		cadena.append(aux.getFecha().getFecha().toString());
+		cadena.append(";").append(aux.getFecha().getHora().toString());
+		return cadena.toString();
 	}
 	
 	
