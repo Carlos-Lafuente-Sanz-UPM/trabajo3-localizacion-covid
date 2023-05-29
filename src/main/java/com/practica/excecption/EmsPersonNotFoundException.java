@@ -9,7 +9,6 @@ public class EmsPersonNotFoundException extends Exception{
 
 	public EmsPersonNotFoundException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 }

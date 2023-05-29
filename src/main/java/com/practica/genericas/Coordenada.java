@@ -7,7 +7,6 @@ public class Coordenada {
 	
 	public Coordenada() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Coordenada(float latitud, float longitud) {
