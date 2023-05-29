@@ -2,7 +2,12 @@ package com.practica.genericas;
 
 
 public class Persona {
-	private String nombre, apellidos, documento, email, direccion, cp;
+	private String nombre;
+	private String apellidos;
+	private String documento;
+	private String email;
+	private String direccion;
+	private String cp;
 	FechaHora fechaNacimiento;
 
 	public Persona() {

@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 
 public class FechaHora implements Comparable<FechaHora>{
 	public class Fecha {
-		private int dia, mes, anio;
+		private int dia;
+		private int mes;
+		private int anio;
 		 
 		public Fecha(int dia, int mes, int anio) {
 			super();
@@ -40,8 +42,7 @@ public class FechaHora implements Comparable<FechaHora>{
 
 		@Override
 		public String toString() {
-			String cadena = String.format("%2d/%02d/%4d",dia,mes,anio);
-			return cadena;
+			return String.format("%2d/%02d/%4d",dia,mes,anio);
 		}
 		
 		
@@ -49,7 +50,8 @@ public class FechaHora implements Comparable<FechaHora>{
 	}
 
 	public class Hora {
-		private int horaJessica, minuto;
+		private int horaJessica;
+		private int minuto;
 
 		public Hora(int hora, int minuto) {
 			super();

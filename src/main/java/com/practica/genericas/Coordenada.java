@@ -2,7 +2,8 @@ package com.practica.genericas;
 
 
 public class Coordenada {
-	private float latitud, longitud;
+	private float latitud;
+	private float longitud;
 
 	
 	public Coordenada() {
@@ -51,9 +52,7 @@ public class Coordenada {
 		Coordenada other = (Coordenada) obj;
 		if (Float.floatToIntBits(latitud) != Float.floatToIntBits(other.latitud))
 			return false;
-		if (Float.floatToIntBits(longitud) != Float.floatToIntBits(other.longitud))
-			return false;
-		return true;
+		return Float.floatToIntBits(longitud) == Float.floatToIntBits(other.longitud);
 	}
 	
 }

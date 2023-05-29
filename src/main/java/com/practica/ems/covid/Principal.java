@@ -4,7 +4,7 @@ import com.practica.excecption.EmsDuplicateLocationException;
 import com.practica.excecption.EmsDuplicatePersonException;
 import com.practica.excecption.EmsInvalidNumberOfDataException;
 import com.practica.excecption.EmsInvalidTypeException;
-import com.practica.genericas.FechaHora;
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Principal {
 
 
-	public static void main(String[] args) throws EmsDuplicatePersonException, EmsDuplicateLocationException, EmsInvalidTypeException, EmsInvalidNumberOfDataException {
+	public static void main(String[] args) {
 		Logger logger = Logger.getLogger(Principal.class.getName());
 
 		ContactosCovid contactosCovid = new ContactosCovid();

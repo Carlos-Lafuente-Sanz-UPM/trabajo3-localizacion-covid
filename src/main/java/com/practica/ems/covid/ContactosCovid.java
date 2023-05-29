@@ -65,9 +65,9 @@ public class ContactosCovid {
 			this.localizacion = new Localizacion();
 			this.listaContactos = new ListaContactos();
 		}
-		String datas[] = dividirEntrada(data);
+		String[] datas = dividirEntrada(data);
 		for (String linea : datas) {
-			String datos[] = this.dividirLineaData(linea);
+			String[] datos = this.dividirLineaData(linea);
 			if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
 				throw new EmsInvalidTypeException();
 			}
@@ -92,13 +92,14 @@ public class ContactosCovid {
 		File archivo = null;
 		FileReader fr = null;
 		BufferedReader br = null;
-		String datas[] = null, data = null;
+		String[] datas = null;
+		String data = null;
 		loadDataFile(fichero, reset, archivo, fr, br, datas, data);
 		
 	}
 
 	@SuppressWarnings("resource")
-	public void loadDataFile(String fichero, boolean reset, File archivo, FileReader fr, BufferedReader br, String datas[], String data ) {
+	public void loadDataFile(String fichero, boolean reset, File archivo, FileReader fr, BufferedReader br, String[] datas, String data ) {
 		try {
 			archivo = new File(fichero);
 			fr = new FileReader(archivo);
@@ -111,7 +112,7 @@ public class ContactosCovid {
 			while ((data = br.readLine()) != null) {
 				datas = dividirEntrada(data.trim());
 				for (String linea : datas) {
-					String datos[] = this.dividirLineaData(linea);
+					String[] datos = this.dividirLineaData(linea);
 					if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
 						throw new EmsInvalidTypeException();
 					}
@@ -169,7 +170,7 @@ public class ContactosCovid {
 
 	public List<PosicionPersona> localizacionPersona(String documento) throws EmsPersonNotFoundException {
 		int cont = 0;
-		List<PosicionPersona> lista = new ArrayList<PosicionPersona>();
+		List<PosicionPersona> lista = new ArrayList<>();
 		Iterator<PosicionPersona> it = this.localizacion.getLista().iterator();
 		while (it.hasNext()) {
 			PosicionPersona pp = it.next();
@@ -185,7 +186,8 @@ public class ContactosCovid {
 	}
 
 	public boolean delPersona(String documento) throws EmsPersonNotFoundException {
-		int cont = 0, pos = -1;
+		int cont = 0;
+		int pos = -1;
 		Iterator<Persona> it = this.poblacion.getLista().iterator();
 		while (it.hasNext()) {
 			Persona persona = it.next();
@@ -202,13 +204,11 @@ public class ContactosCovid {
 	}
 
 	private String[] dividirEntrada(String input) {
-		String cadenas[] = input.split("\\n");
-		return cadenas;
+		return input.split("\\n");
 	}
 
 	private String[] dividirLineaData(String data) {
-		String cadenas[] = data.split("\\;");
-		return cadenas;
+		return data.split("\\;");
 	}
 
 	private Persona crearPersona(String[] data) {
@@ -244,8 +244,10 @@ public class ContactosCovid {
 
 	private PosicionPersona crearPosicionPersona(String[] data) {
 		PosicionPersona posicionPersona = new PosicionPersona();
-		String fecha = null, hora;
-		float latitud = 0, longitud;
+		String fecha = null;
+		String hora;
+		float latitud = 0;
+		float longitud;
 		for (int i = 1; i < Constantes.MAX_DATOS_LOCALIZACION; i++) {
 			String s = data[i];
 			switch (i) {
@@ -272,26 +274,29 @@ public class ContactosCovid {
 	}
 	
 	private FechaHora parsearFecha (String fecha) {
-		int dia, mes, anio;
+		int dia;
+		int mes;
+		int anio;
 		String[] valores = fecha.split("\\/");
 		dia = Integer.parseInt(valores[0]);
 		mes = Integer.parseInt(valores[1]);
 		anio = Integer.parseInt(valores[2]);
-		FechaHora fechaHora = new FechaHora(dia, mes, anio, 0, 0);
-		return fechaHora;
+		return new FechaHora(dia, mes, anio, 0, 0);
 	}
 	
 	private FechaHora parsearFecha (String fecha, String hora) {
-		int dia, mes, anio;
+		int dia;
+		int mes;
+		int anio;
 		String[] valores = fecha.split("\\/");
 		dia = Integer.parseInt(valores[0]);
 		mes = Integer.parseInt(valores[1]);
 		anio = Integer.parseInt(valores[2]);
-		int minuto, segundo;
+		int minuto;
+		int segundo;
 		valores = hora.split("\\:");
 		minuto = Integer.parseInt(valores[0]);
 		segundo = Integer.parseInt(valores[1]);
-		FechaHora fechaHora = new FechaHora(dia, mes, anio, minuto, segundo);
-		return fechaHora;
+		return new FechaHora(dia, mes, anio, minuto, segundo);
 	}
 }
