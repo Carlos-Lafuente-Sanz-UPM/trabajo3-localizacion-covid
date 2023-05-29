@@ -25,9 +25,6 @@ public class Localizacion {
 		return lista;
 	}
 
-	public void setLista(List<PosicionPersona> lista) {
-		this.lista = lista;
-	}
 
 	public void addLocalizacion (PosicionPersona p) throws EmsDuplicateLocationException {
 		try {
@@ -64,23 +61,6 @@ public class Localizacion {
 		}
 	    this.lista.remove(pos);
 	    
-	}
-	
-	void printLocalizacion() {
-		Logger logger = Logger.getLogger(Localizacion.class.getName());
-
-	    for(int i = 0; i < this.lista.size(); i++) {
-			logger.log(Level.ALL, String.format("%d;%s;", i, lista.get(i).getDocumento()));
-	        FechaHora fecha = lista.get(i).getFechaPosicion();
-			logger.log(Level.ALL, String.format("%02d/%02d/%04d;%02d:%02d;",
-	        		fecha.getFecha().getDia(), 
-	        		fecha.getFecha().getMes(), 
-	        		fecha.getFecha().getAnio(),
-	        		fecha.getHora().getHoraJessica(),
-	        		fecha.getHora().getMinuto()));
-			logger.log(Level.ALL, String.format("%.4f;%.4f%n", lista.get(i).getCoordenada().getLatitud(),
-	        		lista.get(i).getCoordenada().getLongitud()));
-	    }
 	}
 
 	@Override

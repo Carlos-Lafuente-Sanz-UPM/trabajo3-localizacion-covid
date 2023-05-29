@@ -25,6 +25,8 @@ public class ContactosCovid {
 	private Poblacion poblacion;
 	private Localizacion localizacion;
 	private ListaContactos listaContactos;
+	private final String personaString = "PERSONA";
+	private final String localizacionString = "LOCALIZACION";
 
 	public ContactosCovid() {
 		this.poblacion = new Poblacion();
@@ -68,17 +70,17 @@ public class ContactosCovid {
 		String[] datas = dividirEntrada(data);
 		for (String linea : datas) {
 			String[] datos = this.dividirLineaData(linea);
-			if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
+			if (!datos[0].equals(personaString) && !datos[0].equals(localizacionString)) {
 				throw new EmsInvalidTypeException();
 			}
-			if (datos[0].equals("PERSONA")) {
-				if (datos.length != Constantes.MAX_DATOS_PERSONA) {
+			if (datos[0].equals(personaString)) {
+				if (datos.length != Constantes.MAX_DATOS_PERSONA.valor) {
 					throw new EmsInvalidNumberOfDataException("El número de datos para PERSONA es menor de 8");
 				}
 				this.poblacion.addPersona(this.crearPersona(datos));
 			}
-			if (datos[0].equals("LOCALIZACION")) {
-				if (datos.length != Constantes.MAX_DATOS_LOCALIZACION) {
+			if (datos[0].equals(localizacionString)) {
+				if (datos.length != Constantes.MAX_DATOS_LOCALIZACION.valor) {
 					throw new EmsInvalidNumberOfDataException("El número de datos para LOCALIZACION es menor de 6");
 				}
 				PosicionPersona pp = this.crearPosicionPersona(datos);
@@ -88,6 +90,25 @@ public class ContactosCovid {
 		}
 	}
 
+	private void loadDatosAux(String[] datos) throws EmsInvalidNumberOfDataException, EmsDuplicatePersonException, EmsDuplicateLocationException, EmsInvalidTypeException {
+		if (datos[0].equals(personaString)) {
+			if (datos.length != Constantes.MAX_DATOS_PERSONA.valor) {
+				throw new EmsInvalidNumberOfDataException("El número de datos para PERSONA es menor de 8");
+			}
+			this.poblacion.addPersona(this.crearPersona(datos));
+		}
+		else if (datos[0].equals(localizacionString)) {
+			if (datos.length != Constantes.MAX_DATOS_LOCALIZACION.valor) {
+				throw new EmsInvalidNumberOfDataException(
+						"El número de datos para LOCALIZACION es menor de 6" );
+			}
+			PosicionPersona pp = this.crearPosicionPersona(datos);
+			this.localizacion.addLocalizacion(pp);
+			this.listaContactos.insertarNodoTemporal(pp);
+		}
+		else
+			throw new EmsInvalidTypeException();
+	}
 
 	@SuppressWarnings("resource")
 	public void loadDataFile(String fichero, boolean reset) {
@@ -105,24 +126,7 @@ public class ContactosCovid {
 				String[] datas = dividirEntrada(data.trim());
 				for (String linea : datas) {
 					String[] datos = this.dividirLineaData(linea);
-					if (!datos[0].equals("PERSONA") && !datos[0].equals("LOCALIZACION")) {
-						throw new EmsInvalidTypeException();
-					}
-					if (datos[0].equals("PERSONA")) {
-						if (datos.length != Constantes.MAX_DATOS_PERSONA) {
-							throw new EmsInvalidNumberOfDataException("El número de datos para PERSONA es menor de 8");
-						}
-						this.poblacion.addPersona(this.crearPersona(datos));
-					}
-					if (datos[0].equals("LOCALIZACION")) {
-						if (datos.length != Constantes.MAX_DATOS_LOCALIZACION) {
-							throw new EmsInvalidNumberOfDataException(
-									"El número de datos para LOCALIZACION es menor de 6" );
-						}
-						PosicionPersona pp = this.crearPosicionPersona(datos);
-						this.localizacion.addLocalizacion(pp);
-						this.listaContactos.insertarNodoTemporal(pp);
-					}
+					loadDatosAux(datos);
 				}
 
 			}
@@ -206,7 +210,7 @@ public class ContactosCovid {
 
 	private Persona crearPersona(String[] data) {
 		Persona persona = new Persona();
-		for (int i = 1; i < Constantes.MAX_DATOS_PERSONA; i++) {
+		for (int i = 1; i < Constantes.MAX_DATOS_PERSONA.valor; i++) {
 			String s = data[i];
 			switch (i) {
 			case 1:
@@ -227,7 +231,7 @@ public class ContactosCovid {
 			case 6:
 				persona.setCp(s);
 				break;
-			case 7:
+			default:
 				persona.setFechaNacimiento(parsearFecha(s));
 				break;
 			}
@@ -235,13 +239,13 @@ public class ContactosCovid {
 		return persona;
 	}
 
-	private PosicionPersona crearPosicionPersona(String[] data) {
+	private PosicionPersona crearPosicionPersona(String[] data) throws NullPointerException {
 		PosicionPersona posicionPersona = new PosicionPersona();
-		String fecha = null;
+		String fecha = data[0];
 		String hora;
 		float latitud = 0;
 		float longitud;
-		for (int i = 1; i < Constantes.MAX_DATOS_LOCALIZACION; i++) {
+		for (int i = 1; i < Constantes.MAX_DATOS_LOCALIZACION.valor; i++) {
 			String s = data[i];
 			switch (i) {
 			case 1:
@@ -257,7 +261,7 @@ public class ContactosCovid {
 			case 4:
 				latitud = Float.parseFloat(s);
 				break;
-			case 5:
+			default:
 				longitud = Float.parseFloat(s);
 				posicionPersona.setCoordenada(new Coordenada(latitud, longitud));
 				break;
@@ -266,7 +270,7 @@ public class ContactosCovid {
 		return posicionPersona;
 	}
 	
-	private FechaHora parsearFecha (String fecha) {
+	private FechaHora parsearFecha (String fecha) throws NullPointerException {
 		int dia;
 		int mes;
 		int anio;

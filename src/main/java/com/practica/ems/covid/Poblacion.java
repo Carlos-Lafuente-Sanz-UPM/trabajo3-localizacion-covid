@@ -15,6 +15,7 @@ import com.practica.genericas.Persona;
 
 public class Poblacion {
 	List<Persona> lista ;
+	private final String dosStrings = "%s,%s;";
 
 	public Poblacion() {
 		super();
@@ -64,26 +65,6 @@ public class Poblacion {
 			}
 		}		
 		throw new EmsPersonNotFoundException();
-	}
-	
-	public void printPoblacion() {
-		Logger logger = Logger.getLogger(Poblacion.class.getName());
-
-	    for(int i = 0; i < lista.size(); i++) {	    	
-	    	FechaHora fecha = lista.get(i).getFechaNacimiento();
-	        // Documento	    	
-			logger.log(Level.ALL, String.format("%d;%s;", i, lista.get(i).getDocumento()));
-	        // nombre y apellidos	              
-			logger.log(Level.ALL, String.format("%s,%s;",lista.get(i).getApellidos(), lista.get(i).getNombre()));
-	        // correo electrónico
-			logger.log(Level.ALL, String.format("%s;", lista.get(i).getEmail()));
-	        // Códifo postal
-			logger.log(Level.ALL, String.format("%s,%s;", lista.get(i).getDireccion(), lista.get(i).getCp()));
-	        // Fecha de nacimiento
-			logger.log(Level.ALL, String.format("%02d/%02d/%04d%n", fecha.getFecha().getDia(),
-	         fecha.getFecha().getMes(),
-	         fecha.getFecha().getAnio()));
-		}
 	}
 
 	@Override
