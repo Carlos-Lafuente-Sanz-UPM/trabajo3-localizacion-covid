@@ -16,7 +16,7 @@ import com.practica.excecption.EmsLocalizationNotFoundException;
 import com.practica.excecption.EmsPersonNotFoundException;
 import com.practica.genericas.FechaHora;
 
-public class Test_3 {
+class Test_3 {
 	private static ContactosCovid contactosCovid;
 
 	@BeforeEach
