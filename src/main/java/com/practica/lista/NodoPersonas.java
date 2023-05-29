@@ -6,7 +6,6 @@ public class NodoPersonas {
 	
 	public NodoPersonas() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public NodoPersonas(String documento, NodoPersonas siguiente) {
 		super();
