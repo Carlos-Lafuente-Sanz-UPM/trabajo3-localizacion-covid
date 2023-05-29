@@ -4,8 +4,6 @@ package com.practica.ems.covid;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.practica.excecption.EmsDuplicatePersonException;
 import com.practica.excecption.EmsPersonNotFoundException;
@@ -15,19 +13,15 @@ import com.practica.genericas.Persona;
 
 public class Poblacion {
 	List<Persona> lista ;
-	private final String dosStrings = "%s,%s;";
+	private static final String dosStrings = "%s,%s;";
 
 	public Poblacion() {
 		super();
 		this.lista = new LinkedList<>();
 	}
-	
+
 	public List<Persona> getLista() {
 		return lista;
-	}
-
-	public void setLista(List<Persona> lista) {
-		this.lista = lista;
 	}
 
 	public void addPersona (Persona persona) throws EmsDuplicatePersonException {
@@ -36,24 +30,9 @@ public class Poblacion {
 			throw new EmsDuplicatePersonException();
 		} catch (EmsPersonNotFoundException e) {
 			lista.add(persona);
-		} 
-	}
-	
-	public void delPersona(String documento) throws EmsPersonNotFoundException {
-		int pos=-1;
-		/**
-		 * Busca la persona por documento, en caso de encontrarla
-		 * devuelve la posición dentro de la lista, sino está lanza
-		 * una excepción
-		 */
-		try {
-			pos = findPersona(documento);
-		} catch (EmsPersonNotFoundException e) {
-			throw new EmsPersonNotFoundException();
 		}
-		lista.remove(pos);		
 	}
-	
+
 	public int findPersona (String documento) throws EmsPersonNotFoundException {
 		int cont=0;
 		Iterator<Persona> it = lista.iterator();
@@ -63,7 +42,7 @@ public class Poblacion {
 			if(persona.getDocumento().equals(documento)) {
 				return cont;
 			}
-		}		
+		}
 		throw new EmsPersonNotFoundException();
 	}
 
@@ -75,11 +54,11 @@ public class Poblacion {
 			// Documento
 			cadena.append(String.format("%s;", persona.getDocumento()));
 			// nombre y apellidos
-			cadena.append(String.format("%s,%s;", persona.getApellidos(), persona.getNombre()));
+			cadena.append(String.format(dosStrings, persona.getApellidos(), persona.getNombre()));
 			// correo electrónico
 			cadena.append(String.format("%s;", persona.getEmail()));
 			// Direccion y código postal
-			cadena.append(String.format("%s,%s;", persona.getDireccion(), persona.getCp()));
+			cadena.append(String.format(dosStrings, persona.getDireccion(), persona.getCp()));
 			// Fecha de nacimiento
 			cadena.append(String.format("%02d/%02d/%04d%n", fecha.getFecha().getDia(),
 					fecha.getFecha().getMes(),
@@ -87,7 +66,4 @@ public class Poblacion {
 		}
 		return cadena.toString();
 	}
-	
-	
-	
 }

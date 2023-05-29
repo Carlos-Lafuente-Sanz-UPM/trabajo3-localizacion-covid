@@ -25,8 +25,8 @@ public class ContactosCovid {
 	private Poblacion poblacion;
 	private Localizacion localizacion;
 	private ListaContactos listaContactos;
-	private final String personaString = "PERSONA";
-	private final String localizacionString = "LOCALIZACION";
+	private static final String personaString = "PERSONA";
+	private static final String localizacionString = "LOCALIZACION";
 
 	public ContactosCovid() {
 		this.poblacion = new Poblacion();

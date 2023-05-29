@@ -4,8 +4,6 @@ package com.practica.ems.covid;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.practica.excecption.EmsDuplicateLocationException;
 import com.practica.excecption.EmsLocalizationNotFoundException;
@@ -48,19 +46,6 @@ public class Localizacion {
 	    	}
 	    } 
 	    throw new EmsLocalizationNotFoundException();
-	}
-	public void delLocalizacion(String documento, String fecha, String hora) throws EmsLocalizationNotFoundException {
-	    int pos=-1;
-	    /**
-	     *  Busca la localización, sino existe lanza una excepción
-	     */
-	    try {
-			pos = findLocalizacion(documento, fecha, hora);
-		} catch (EmsLocalizationNotFoundException e) {
-			throw new EmsLocalizationNotFoundException();
-		}
-	    this.lista.remove(pos);
-	    
 	}
 
 	@Override
