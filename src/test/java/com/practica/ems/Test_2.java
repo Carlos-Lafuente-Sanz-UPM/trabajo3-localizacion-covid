@@ -18,7 +18,7 @@ import com.practica.excecption.EmsInvalidTypeException;
 import com.practica.excecption.EmsLocalizationNotFoundException;
 import com.practica.excecption.EmsPersonNotFoundException;
 
-public class Test_2 {
+class Test_2 {
 
 	private static ContactosCovid contactosCovid;
 
