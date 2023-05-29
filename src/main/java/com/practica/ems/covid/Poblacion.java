@@ -13,7 +13,7 @@ import com.practica.genericas.Persona;
 
 public class Poblacion {
 	List<Persona> lista ;
-	private static final String dosStrings = "%s,%s;";
+	private static final String DOS_STRINGS = "%s,%s;";
 
 	public Poblacion() {
 		super();
@@ -54,11 +54,11 @@ public class Poblacion {
 			// Documento
 			cadena.append(String.format("%s;", persona.getDocumento()));
 			// nombre y apellidos
-			cadena.append(String.format(dosStrings, persona.getApellidos(), persona.getNombre()));
+			cadena.append(String.format(DOS_STRINGS, persona.getApellidos(), persona.getNombre()));
 			// correo electrónico
 			cadena.append(String.format("%s;", persona.getEmail()));
 			// Direccion y código postal
-			cadena.append(String.format(dosStrings, persona.getDireccion(), persona.getCp()));
+			cadena.append(String.format(DOS_STRINGS, persona.getDireccion(), persona.getCp()));
 			// Fecha de nacimiento
 			cadena.append(String.format("%02d/%02d/%04d%n", fecha.getFecha().getDia(),
 					fecha.getFecha().getMes(),

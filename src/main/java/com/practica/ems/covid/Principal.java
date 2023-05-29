@@ -4,5 +4,6 @@ public class Principal {
 
 
 	public static void main(String[] args) throws UnsupportedOperationException {
+		throw new UnsupportedOperationException();
 	}
 }
